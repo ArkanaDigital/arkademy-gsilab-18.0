@@ -3,7 +3,9 @@
 ======================================
 
 **Topik:** Development Basic Odoo 18 CE  
+
 **Durasi:** 09.00 – 17.00 WIB  
+
 **Versi:** Odoo 18.0 Community Edition
 
 --------------------------------------
@@ -485,8 +487,6 @@ Search view digunakan untuk mendefinisikan **kolom pencarian dan filter cepat** 
 - ``search`` → jenis view untuk pencarian.
 
 - ``field`` → menentukan field mana yang bisa dicari.
-
-- ``filter`` → menambahkan tombol filter cepat dengan domain tertentu.
 
 
 3.5. Actions dan Menus
@@ -1254,3 +1254,9 @@ Dengan inheritance:
 
 - Karena view ``view_partner_form`` baru bisa kita lihat setelah install modul ``Contacts``, pastikan modul tersebut sudah terinstal sebelum menguji inheritance view.
 
+5.2.1. Domains
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**Domain** digunakan untuk **membatasi atau memfilter data** yang ditampilkan pada field bertipe relasi seperti ``Many2one``, ``One2many``, atau ``Many2many``.  
+Domain juga bisa digunakan untuk membatasi atau memfilter data yang ditampilkan pada sebuah *view*.  
+Dengan domain, kita bisa menentukan kondisi tertentu agar hanya record yang sesuai kriteria yang muncul.
