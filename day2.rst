@@ -430,9 +430,9 @@ Di bagian ini kita akan membuat tampilan **list view** dan **search view** yang 
 Selain membuat tampilan untuk model buku, kita juga bisa menampilkan **anggota perpustakaan**
 dengan tampilan khusus yang berbeda dari kontak umum.
 
---------------------------------------
+
 8.1.1. Daftar Anggota Perpustakaan
---------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Berikut contoh tampilan daftar anggota (`res.partner`) yang hanya menampilkan
 kontak dengan ``is_library_member=True``.
@@ -563,7 +563,59 @@ menampulkan field tersebut di list view.
 9. Security
 --------------------------------------
 
-*(tetap sama seperti versi sebelumnya)*
+Pendahuluan
+-----------
+Untuk menjaga keamanan dan isolasi data dalam Odoo, sistem menyediakan beberapa mekanisme kontrol akses.  
+Dokumentasi ini membahas tiga lapisan utama: *Groups*, *Access Rights*, dan *Record Rules*.  
+Masing-masing lapisan bekerja bersama untuk membatasi apa yang dapat dilakukan pengguna terhadap data.
+
+Groups (Grup)
+-------------
+- Grup (group) adalah cara untuk mengelompokkan pengguna (users) ke dalam peran tertentu (role).  
+- Pengguna dapat menjadi anggota dari satu atau beberapa grup.  
+- Grup menentukan hak macros (misalnya: “Administrator”, “Sales / User”, “Portal”, dll).  
+- Dalam modul keamanan, grup biasanya ditentukan di file XML dengan tag `<group ...>`.
+
+Access Rights (Hak Akses)
+-------------------------
+- Access Rights diterapkan pada level *model* (model-level).  
+- Mereka menentukan apakah anggota grup boleh melakukan operasi CRUD dasar terhadap model tersebut:  
+  - **create** (membuat),  
+  - **read** (membaca),  
+  - **write** (menulis / mengubah),  
+  - **unlink** (menghapus).  
+- Akses ini bersifat global terhadap semua record di model kecuali dicegah lebih lanjut oleh *Record Rules*.  
+- Contoh: jika grup "Manager" punya hak *read* dan *write* di model `sale.order`, maka anggota grup bisa membaca dan mengubah semua order penjualan (kecuali dibatasi oleh aturan rekaman).
+
+Record Rules (Aturan Rekaman)
+-----------------------------
+- Record Rules bekerja pada level record (baris data) dan bersifat lebih spesifik daripada Access Rights.  
+- Mereka mengevaluasi domain (kondisi) untuk menentukan record mana saja yang boleh diakses (read/write/unlink/create) oleh pengguna.  
+- Sebuah Record Rule didefinisikan dengan:  
+  - model terkait,  
+  - domain (ekspresi pencarian, e.g. `[('company_id','=',user.company_id)]`),  
+  - grup (opsional) agar aturan hanya berlaku untuk grup tertentu,  
+  - jenis akses (mode: read, write, unlink, create).  
+- Beberapa aturan bisa digabung (OR / AND) sesuai kebutuhan.  
+- Jika seorang pengguna tidak memenuhi domain dari Record Rule-nya, maka akses terhadap record tersebut ditolak.
+
+Security Override (Override Keamanan)
+-------------------------------------
+- Ada skenario di mana batasan default harus dilanggar (override) — contohnya dalam operasi internal, migrasi data, atau kebutuhan teknis khusus.  
+- Di dalam kode Python, dapat menggunakan **`sudo()`** untuk menjalankan operasi tanpa batasan hak akses pengguna.  
+- Namun, penggunaan `sudo()` harus sangat hati-hati karena bisa melewati semua aturan keamanan.  
+- Odoo juga menyediakan metode seperti `check_access(write)` untuk memeriksa hak akses secara programatis.
+
+Visibility != Security (Visibilitas ≠ Keamanan)
+----------------------------------------------
+- Penting dipahami: hanya karena suatu record **tidak muncul** di antarmuka (UI), bukan berarti pengguna tidak bisa mengaksesnya lewat API / RPC / kode.  
+- Mekanisme keamanan (Access Rights + Record Rules) tetap menjadi filter terakhir terhadap akses data.  
+- UI bisa menyembunyikan opsi (button, menu) tetapi tidak menggantikan aturan keamanan.
+
+Referensi
+---------
+- Dokumentasi Odoo: https://www.odoo.com/documentation/18.0/id/developer/tutorials/restrict_data_access.html#access-rights  
+
 
 --------------------------------------
 10. Wizards
@@ -571,31 +623,3 @@ menampulkan field tersebut di list view.
 
 *(wizard pinjam buku sama seperti sebelumnya — tapi sekarang ketika wizard dikonfirmasi,  
 status pinjaman tercatat di `library.loan` dan otomatis memengaruhi stok melalui compute.)*
-
---------------------------------------
-💡 Latihan Akhir
---------------------------------------
-
-1. Tambahkan model ``library.loan`` dan buat relasi dengan ``library.book``.
-2. Tambahkan kolom stok dan field computed untuk menghitung jumlah tersedia.
-3. Tambahkan view, action, dan menu untuk transaksi peminjaman.
-4. Pastikan peminjam hanya bisa dipilih dari partner dengan ``is_library_member = True``.
-5. Buat 1 buku dengan stok awal 5, lalu buat 3 transaksi pinjaman (state = borrowed).
-   → Pastikan “Jumlah Dipinjam” dan “Stok Tersedia” otomatis terhitung.
-6. Buat record rule agar user hanya dapat melihat transaksi yang dia buat sendiri.
-
---------------------------------------
-📚 Penutup Day 2
---------------------------------------
-
-Pada akhir Day 2, peserta telah memahami:
-
-- Cara membuat model transaksi baru dan menghubungkannya dengan master data.
-- Field computed dengan *dependencies* antar model.
-- Penggunaan default values dan constraints.
-- View dengan data dinamis (stok dan status ketersediaan).
-- Security berbasis grup dan record rules.
-- Wizard yang memengaruhi logika bisnis nyata (peminjaman buku).
-
-Persiapan untuk **Day 3**:
-- Automation: Scheduled Actions, Server Actions, dan Email Templates.
