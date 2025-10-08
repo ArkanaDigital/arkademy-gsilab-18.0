@@ -229,17 +229,23 @@ Buat file baru ``reports/library_loan_xlsx.py`` di folder `reports` untuk mendef
 **Penjelasan Komponen Utama:**
 
 - **`AbstractModel`**:
-  - `AbstractModel` adalah kelas dasar di Odoo yang digunakan untuk mendefinisikan model yang tidak disimpan sebagai tabel di database. Model ini bersifat abstrak dan digunakan untuk keperluan logika bisnis atau utilitas, seperti laporan atau wizard, tanpa perlu membuat tabel fisik.
-  - Dalam konteks ini, `LibraryLoanXlsx` menggunakan `AbstractModel` karena laporan XLSX adalah logika sementara yang dijalankan saat pengguna meminta cetak, bukan data yang disimpan secara permanen. Model ini mewarisi `report.report_xlsx.abstract` dari modul `report_xlsx`, yang menyediakan kerangka kerja untuk menghasilkan file Excel.
+  - **Definisi**: `AbstractModel` adalah kelas dasar di Odoo yang digunakan untuk mendefinisikan model yang tidak disimpan sebagai tabel di database.
+  - **Karakteristik**:
+    - Bersifat abstrak dan digunakan untuk keperluan logika bisnis atau utilitas, seperti laporan, wizard, atau helper class.
+    - Tidak menghasilkan tabel fisik di database, sehingga cocok untuk operasi sementara.
+  - **Penggunaan dalam Konteks Ini**:
+    - Kelas `LibraryLoanXlsx` menggunakan `AbstractModel` karena laporan XLSX adalah logika sementara yang dijalankan saat pengguna meminta cetak, bukan data yang disimpan permanen.
+    - Model ini mewarisi `report.report_xlsx.abstract` dari modul `report_xlsx`, yang menyediakan kerangka kerja untuk menghasilkan file Excel.
 
 - **`_name = 'report.fahriza_latihan.report_library_loan_xlsx'`**:
-  - Field `_name` adalah pengidentifikasi unik untuk model Odoo. Untuk laporan, formatnya mengikuti konvensi tertentu: `'report.<module_name>.<report_identifier>'`.
+  - **Definisi**: Field `_name` adalah pengidentifikasi unik untuk model Odoo, yang dalam kasus laporan mengikuti konvensi `'report.<module_name>.<report_identifier>'`.
   - **Penjelasan Format**:
-    - **`report`**: Menunjukkan bahwa ini adalah model laporan.
-    - **`fahriza_latihan`**: Nama modul Anda (sesuai dengan nama modul `fahriza_latihan` di `day3.rst`).
-    - **`report_library_loan_xlsx`**: Identifikasi unik untuk laporan ini, yang mencerminkan tujuannya (laporan Excel untuk transaksi peminjaman buku).
-  - Nilai ini harus sesuai dengan field `report_name` di definisi action report XML (lihat 11.2.3) agar Odoo dapat menghubungkan model laporan dengan action yang dipanggil dari UI.
-  - Contoh ini menunjukkan bahwa laporan ini spesifik untuk modul `fahriza_latihan` dan digunakan untuk menghasilkan file XLSX berdasarkan data `library.loan`.
+    - **`report`**: Menandakan bahwa ini adalah model laporan.
+    - **`fahriza_latihan`**: Nama modul Anda, sesuai dengan nama modul `fahriza_latihan` di `day3.rst`.
+    - **`report_library_loan_xlsx`**: Identifikasi unik untuk laporan ini, mencerminkan tujuannya sebagai laporan Excel untuk transaksi peminjaman buku.
+  - **Integrasi**:
+    - Nilai ini harus sesuai dengan field `report_name` di definisi action report XML (lihat 11.2.3) agar Odoo dapat menghubungkan model laporan dengan action yang dipanggil dari UI.
+    - Menunjukkan bahwa laporan ini spesifik untuk modul `fahriza_latihan` dan digunakan untuk menghasilkan file XLSX berdasarkan data `library.loan`.
 
 Tambahkan file ini ke `fahriza_latihan/__init__.py`:
 
