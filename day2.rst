@@ -482,14 +482,14 @@ kontak dengan ``is_library_member=True``.
 
     <!-- Hubungkan view list & form ke action -->
     <record id="action_library_member_view_list" model="ir.actions.act_window.view">
-        <field name="sequence" eval="1"/>
+        <field name="sequence" eval="101"/>
         <field name="view_mode">list</field>
         <field name="view_id" ref="view_library_member_list"/>
         <field name="act_window_id" ref="action_library_member"/>
     </record>
 
     <record id="action_library_member_view_form" model="ir.actions.act_window.view">
-        <field name="sequence" eval="2"/>
+        <field name="sequence" eval="102"/>
         <field name="view_mode">form</field>
         <field name="view_id" ref="view_library_member_form"/>
         <field name="act_window_id" ref="action_library_member"/>
