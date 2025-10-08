@@ -2,7 +2,7 @@
 🧩 Arkademy GSI Lab 18.0 - Day 2
 ======================================
 
-**Topik:** Advanced Development Odoo 18 CE  
+**Topik:** Development Basic Odoo 18 CE  
 
 **Durasi:** 09.00 – 17.00 WIB  
 
