@@ -305,8 +305,11 @@ Tujuannya adalah membangun fitur lengkap untuk modul perpustakaan.
 💡 **Latihan Terstruktur:**
 
 1. **Menambahkan Field Baru ke library.book**  
-   Tambahkan field ``total_loan_count`` (Integer, computed) di model ``library.book`` untuk menghitung total peminjaman buku (termasuk yang sudah dikembalikan).  
+   
+   - Tambahkan field ``total_loan_count`` (Integer, computed) di model ``library.book`` untuk menghitung total peminjaman buku (termasuk yang sudah dikembalikan).  
+   
    - Gunakan ``@api.depends`` untuk menghitung berdasarkan ``loan_ids``.  
+   
    - Tambahkan field ini ke form dan list view di ``views/library_book_views.xml``.  
 
 2. **Membuat Constraint Baru**  
@@ -314,22 +317,31 @@ Tujuannya adalah membangun fitur lengkap untuk modul perpustakaan.
 
 3. **Menambahkan Filter di Search View**  
    Perbarui search view ``library.loan`` untuk menambahkan filter:  
+   
    - “Peminjaman Aktif” (state = 'borrowed').  
+   
    - “Peminjaman Selesai” (state = 'returned').  
 
 4. **Membuat Laporan PDF untuk library.book**  
    Buat laporan PDF untuk model ``library.book`` yang menampilkan judul buku beserta kategori dan penulis.  
+   
    - Buat paperformat baru di ``reports/library_book_report.xml``.  
+   
    - Tambahkan action report dan template QWeb.  
+   
    - Tambahkan tombol cetak di form view ``library.book``.  
 
 5. **Membuat Laporan Excel untuk library.book**  
    Tambahkan method di model ``library.book`` untuk export daftar buku ke Excel, termasuk kolom: Judul, ISBN, Kategori, dan Stok Tersedia.  
+   
    - Tambahkan tombol di form view untuk memanggil method ini.  
 
 6. **Menguji Keamanan**  
+   
    - Modifikasi access right pada model ``library.book`` sehingga hanya group ``Librari Super Admin`` yang dapat menambah atau menghapus record. Selain itu, hanya dapat membaca dan mengubah.
+   
    - Modifikasi access right pada model ``library.category`` sehingga hanya group ``Librari Super Admin`` yang dapat menambah, merubah atau menghapus record. Selain itu, hanya dapat melihat.
+   
    - Modifikasi access right pada model ``library.author`` sehingga hanya group ``Librari Super Admin`` yang dapat menambah, merubah atau menghapus record. Selain itu, hanya dapat melihat.
 
 7. **Menambahkan Button Aksi di Form View**  
