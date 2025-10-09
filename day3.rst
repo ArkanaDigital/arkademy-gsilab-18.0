@@ -319,7 +319,7 @@ Tujuannya adalah membangun fitur lengkap untuk modul perpustakaan.
 
 4. **Membuat Laporan PDF untuk library.book**  
    Buat laporan PDF untuk model ``library.book`` yang menampilkan judul buku beserta kategori dan penulis.  
-   - Buat paperformat baru di ``reports/library_report.xml``.  
+   - Buat paperformat baru di ``reports/library_book_report.xml``.  
    - Tambahkan action report dan template QWeb.  
    - Tambahkan tombol cetak di form view ``library.book``.  
 
