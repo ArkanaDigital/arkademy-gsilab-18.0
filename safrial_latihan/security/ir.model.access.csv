@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_library_book_user,access.library.book,model_library_book,base.group_user,1,0,0,0
+access_library_book_super_admin,access.library.book.super.admin,model_library_book,safrial_latihan.group_library_super_admin,1,1,1,1
+access_library_category_user,access.library.category,model_library_category,base.group_user,1,0,0,0,
+access_library_category_super_admin,access.library.category.super.admin,model_library_category,safrial_latihan.group_library_super_admin,1,1,1,1
+access_library_author_user,access.library.author,model_library_author,base.group_user,1,0,0,0
+access_library_author_super_admin,access.library.author.super.admin,model_library_author,safrial_latihan.group_library_super_admin,1,1,1,1
+access_library_loan_super_admin,access.library.loan.super.admin,model_library_loan,safrial_latihan.group_library_super_admin,1,1,1,1
+access_library_loan_admin,access.library.loan.admin,model_library_loan,safrial_latihan.group_library_admin,1,1,1,0
+access_library_loan_member,access.library.loan.member,model_library_loan,safrial_latihan.group_library_member,1,0,0,0
+access_library_borrow_wizard_user,access.library.borrow.wizard.user,model_library_borrow_wizard,base.group_user,1,1,1,1

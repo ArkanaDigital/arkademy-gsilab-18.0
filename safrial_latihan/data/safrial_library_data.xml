@@ -1,0 +1,11 @@
+<odoo>
+    <data>
+        <record id="book_python" model="library.book">
+            <field name="name">Python untuk Pemula</field>
+            <field name="isbn">ISBN1234567</field>
+            <field name="published_date">2023-06-01</field>
+            <field name="price">120000</field>
+            <field name="available">True</field>
+        </record>
+    </data>
+</odoo>

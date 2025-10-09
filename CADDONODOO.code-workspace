@@ -1,0 +1,27 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"launch": {
+		"version": "0.2.0",
+		"configurations": [
+			{
+				"name": "Run Odoo",
+				"type": "python",
+				"request": "launch",
+				"stopOnEntry": false,
+				"console": "integratedTerminal",
+				"pythonPath": "C:/Program Files/Odoo 18.0.20251006/python/python.exe",
+				"program": "C:/Program Files/Odoo 18.0.20251006/server/odoo-bin",
+				"args": [
+					"--config=C:/Program Files/Odoo 18.0.20251006/server/odoo.conf",
+					"--dev=xml",
+					"--database=latihan1",
+					"--update=safrial_latihan"
+				]
+			}
+		]
+	}
+}

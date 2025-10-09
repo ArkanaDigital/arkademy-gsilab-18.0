@@ -1,0 +1,103 @@
+<odoo>
+    <record id="view_library_book_list" model="ir.ui.view">
+        <field name="name">library.book.list</field>
+        <field name="model">library.book</field>
+        <field name="arch" type="xml">
+            <list string="Daftar Buku">
+                <field name="name" />
+                <field name="isbn" />
+                <field name="category_id" />  <!-- Many2one -->
+                <field name="published_date" />
+                <field name="price" />
+                <field name="available" />
+                <field name="initial_stock"/>
+                <field name="borrowed_qty" readonly="1"/>
+                <field name="available_qty" readonly="1"/>
+                <field name="available" readonly="1"/>
+                <field name="loan_ids" widget="one2many_list" readonly="1"/>
+                <field name="total_loan_count" readonly="1" />
+            </list>
+        </field>
+    </record>
+
+    <record id="view_library_book_form" model="ir.ui.view">
+        <field name="name">library.book.form</field>
+        <field name="model">library.book</field>
+        <field name="arch" type="xml">
+            <form string="Data Buku">
+                <header>
+                    <button string="Pinjam" type="object" name="action_borrow_book" class="btn-primary" />
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name" />
+                        <field name="category_id" />  <!-- Many2one -->
+                        <field name="author_ids" widget="many2many_tags" /> <!-- Many2many -->
+                        <field name="published_date" />
+                        <field name="isbn" />
+                        <field name="price" />
+                        <field name="available" />
+                        <field name="initial_stock"/>
+                        <field name="borrowed_qty" readonly="1"/>
+                        <field name="available_qty" readonly="1"/>
+                        <field name="available" readonly="1"/>
+                        <field name="loan_ids" widget="one2many_list" readonly="1"/>
+                        <field name="total_loan_count" readonly="1" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_library_book_search" model="ir.ui.view">
+        <field name="name">library.book.search</field>
+        <field name="model">library.book</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" string="Judul Buku" />
+                <field name="isbn" />
+                <field name="category_id" />  <!-- Many2one -->
+                <filter name="filter_tersedia" string="Tersedia" domain="[('available', '=', True)]"/>
+                <filter name="filter_habis" string="Stok Habis" domain="[('available', '=', False)]"/>
+                <group expand="0" string="Group By">
+                    <filter name="groupby_category" string="Kategori" context="{'group_by': 'category_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Menu Root -->
+    <menuitem id="menu_library_root" name="Perpustakaan" />
+
+    <!-- Submenu Buku -->
+    <menuitem id="menu_library_book" name="Data Buku" parent="menu_library_root" />
+
+    <!-- Action Window -->
+    <record id="action_library_book" model="ir.actions.act_window">
+        <field name="name">Daftar Buku</field>
+        <field name="res_model">library.book</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_filter_tersedia': True}</field>
+    </record>
+
+    <!-- Hubungan Action Window dengan View -->
+    <record id="action_library_book_list" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1" />
+        <field name="view_mode">list</field>
+        <field name="view_id" ref="safrial_latihan.view_library_book_list" />
+        <field name="act_window_id" ref="action_library_book" />
+    </record>
+
+    <record id="action_library_book_form" model="ir.actions.act_window.view">
+        <field name="sequence" eval="2" />
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="safrial_latihan.view_library_book_form" />
+        <field name="act_window_id" ref="action_library_book" />
+    </record>
+
+    <!-- Menu Item -->
+    <menuitem id="menu_library_book_list"
+        name="Buku"
+        parent="menu_library_book"
+        action="action_library_book" />
+</odoo>

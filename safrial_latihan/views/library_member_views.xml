@@ -1,0 +1,63 @@
+<odoo>
+<!-- View List untuk Anggota Perpustakaan -->
+<record id="view_library_member_list" model="ir.ui.view">
+    <field name="name">library.member.list</field>
+    <field name="model">res.partner</field>
+    <field name="arch" type="xml">
+        <list string="Daftar Anggota Perpustakaan">
+            <field name="name"/>
+            <field name="mobile"/>
+            <field name="email"/>
+        </list>
+    </field>
+</record>
+
+<!-- View Form sederhana -->
+<record id="view_library_member_form" model="ir.ui.view">
+    <field name="name">library.member.form</field>
+    <field name="model">res.partner</field>
+    <field name="arch" type="xml">
+        <form string="Anggota Perpustakaan">
+            <sheet>
+                <group>
+                    <field name="name"/>
+                    <field name="mobile"/>
+                    <field name="email"/>
+                    <field name="is_library_member" invisible="1"/>
+                </group>
+            </sheet>
+        </form>
+    </field>
+</record>
+
+<!-- Action Window -->
+<record id="action_library_member" model="ir.actions.act_window">
+    <field name="name">Anggota Perpustakaan</field>
+    <field name="res_model">res.partner</field>
+    <field name="domain">[('is_library_member', '=', True)]</field>
+    <field name="view_mode">list,form</field>
+    <field name="context">{'default_is_library_member': True}</field>
+</record>
+
+<!-- Hubungkan view list & form ke action -->
+<record id="action_library_member_view_list" model="ir.actions.act_window.view">
+    <field name="sequence" eval="101"/>
+    <field name="view_mode">list</field>
+    <field name="view_id" ref="view_library_member_list"/>
+    <field name="act_window_id" ref="action_library_member"/>
+</record>
+
+<record id="action_library_member_view_form" model="ir.actions.act_window.view">
+    <field name="sequence" eval="102"/>
+    <field name="view_mode">form</field>
+    <field name="view_id" ref="view_library_member_form"/>
+    <field name="act_window_id" ref="action_library_member"/>
+</record>
+
+<!-- Menu -->
+<menuitem id="menu_library_member"
+            name="Anggota Perpustakaan"
+            parent="menu_library_root"
+            action="action_library_member"
+            sequence="30"/>
+</odoo>

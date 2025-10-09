@@ -1,0 +1,27 @@
+<odoo>
+    <!-- Kategori Grup Perpustakaan -->
+    <record id="module_category_library_management" model="ir.module.category">
+        <field name="name">Library Management</field>
+        <field name="sequence">61</field>
+        <field name="description">Kategori untuk grup dan keamanan modul perpustakaan</field>
+    </record>
+
+    <!-- Member -->
+    <record id="group_library_member" model="res.groups">
+        <field name="name">Library Member</field>
+        <field name="category_id" ref="module_category_library_management"/>
+    </record>
+
+    <!-- Admin -->
+    <record id="group_library_admin" model="res.groups">
+        <field name="name">Library Admin</field>
+        <field name="implied_ids" eval="[(5, 0, 0)]"/>
+        <field name="category_id" ref="module_category_library_management"/>
+    </record>
+
+    <!-- Super Admin -->
+    <record id="group_library_super_admin" model="res.groups">
+        <field name="name">Library Super Admin</field>
+        <field name="category_id" ref="module_category_library_management"/>
+    </record>
+</odoo>

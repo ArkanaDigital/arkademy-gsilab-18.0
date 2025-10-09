@@ -1,0 +1,54 @@
+<odoo>
+     <!-- List View Penulis -->
+     <record id="view_library_author_list" model="ir.ui.view">
+          <field name="name">library.author.list</field>
+          <field name="model">library.author</field>
+          <field name="arch" type="xml">
+            <list string="Daftar Penulis">
+                 <field name="name"/>
+                 <field name="book_ids" widget="many2many_tags"/> <!-- Many2many -->
+            </list>
+          </field>
+     </record>
+
+     <!-- Form View Penulis -->
+     <record id="view_library_author_form" model="ir.ui.view">
+          <field name="name">library.author.form</field>
+          <field name="model">library.author</field>
+          <field name="arch" type="xml">
+            <form string="Data Penulis">
+                 <sheet>
+                      <group>
+                        <field name="name"/>
+                        <field name="biography"/>
+                        <field name="book_ids" widget="many2many_tags"/> <!-- Many2many -->
+                      </group>
+                 </sheet>
+            </form>
+          </field>
+     </record>
+
+     <!-- Search View Penulis -->
+     <record id="view_library_author_search" model="ir.ui.view">
+          <field name="name">library.author.search</field>
+          <field name="model">library.author</field>
+          <field name="arch" type="xml">
+            <search string="Cari Penulis">
+                 <field name="name" string="Nama Penulis"/>
+            </search>
+          </field>
+     </record>
+
+     <!-- Action Window Penulis -->
+     <record id="action_library_author" model="ir.actions.act_window">
+          <field name="name">Daftar Penulis</field>
+          <field name="res_model">library.author</field>
+          <field name="view_mode">list,form</field>
+     </record>
+
+     <!-- Menu Item Penulis -->
+     <menuitem id="menu_library_author"
+              name="Penulis"
+              parent="menu_library_root"
+              action="action_library_author"/>
+</odoo>

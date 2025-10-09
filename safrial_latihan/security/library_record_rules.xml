@@ -1,0 +1,37 @@
+<odoo>
+    <!-- 1. Super Admin: akses penuh ke semua record -->
+    <record id="rule_library_loan_super_admin" model="ir.rule">
+        <field name="name">Library Loan: Super Admin full access</field>
+        <field name="model_id" ref="model_library_loan"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('safrial_latihan.group_library_super_admin'))]"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="1"/>
+    </record>
+
+    <!-- 2. Admin: akses ke semua transaksi -->
+    <record id="rule_library_loan_admin" model="ir.rule">
+        <field name="name">Library Loan: Admin access all</field>
+        <field name="model_id" ref="model_library_loan"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('safrial_latihan.group_library_admin'))]"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+
+    <!-- 3. Member: hanya bisa melihat record miliknya sendiri -->
+    <record id="rule_library_loan_member" model="ir.rule">
+        <field name="name">Library Loan: Member own records only</field>
+        <field name="model_id" ref="model_library_loan"/>
+        <field name="domain_force">[('borrower_id.user_ids', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('safrial_latihan.group_library_member'))]"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="0"/>
+        <field name="perm_create" eval="0"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+</odoo>

@@ -1,0 +1,69 @@
+<odoo>
+    <record id="paperformat_library_loan" model="report.paperformat">
+        <field name="name">Library Loan Report Format</field>
+        <field name="format">A4</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">30</field>
+        <field name="margin_bottom">20</field>
+        <field name="margin_left">10</field>
+        <field name="margin_right">10</field>
+        <field name="header_spacing">30</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <template id="report_library_loan_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="loan">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Laporan Peminjaman Buku</h2>
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>Peminjam</th>
+                                <td><t t-esc="loan.borrower_id.name"/></td>
+                            </tr>
+                            <tr>
+                                <th>Buku</th>
+                                <td><t t-esc="loan.book_id.name"/></td>
+                            </tr>
+                            <tr>
+                                <th>Tanggal Pinjam</th>
+                                <td><t t-esc="loan.borrow_date" t-options="{'widget': 'date'}"/></td>
+                            </tr>
+                            <tr>
+                                <th>Tanggal Kembali</th>
+                                <td><t t-esc="loan.return_date" t-options="{'widget': 'date'}"/></td>
+                            </tr>
+                            <tr>
+                                <th>Status</th>
+                                <td><t t-esc="loan.state"/></td>
+                            </tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <record id="action_report_library_loan" model="ir.actions.report">
+        <field name="name">Laporan Peminjaman Buku</field>
+        <field name="model">library.loan</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">safrial_latihan.report_library_loan_template</field>
+        <field name="paperformat_id" ref="paperformat_library_loan"/>
+        <field name="print_report_name">('Laporan Peminjaman - %s' % (object.borrower_id.name))</field>
+        <field name="binding_model_id" ref="safrial_latihan.model_library_loan" />
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="action_report_library_loan_xlsx" model="ir.actions.report">
+    <field name="name">Laporan Peminjaman Buku (XLSX)</field>
+    <field name="model">library.loan</field>
+    <field name="report_type">xlsx</field>
+    <field name="report_name">safrial_latihan.report_library_loan_xlsx</field>
+    <field name="report_file">safrial_latihan.report_library_loan_xlsx</field>
+    <field name="binding_model_id" ref="model_library_loan"/>
+    <field name="binding_type">report</field>
+    <field name="attachment_use" eval="False"/>
+</record>
+</odoo>
